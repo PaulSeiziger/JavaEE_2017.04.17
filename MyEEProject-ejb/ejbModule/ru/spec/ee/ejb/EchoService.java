@@ -38,6 +38,8 @@ public class EchoService implements IEchoService {
 	public String echo(String msg){
     	testService.test();
     	System.out.println(rnd);
+    	
+    	System.out.println("--->"+testService.getClass().getName());
     	return "re:"+msg;
     }
     

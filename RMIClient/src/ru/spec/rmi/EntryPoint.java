@@ -7,7 +7,7 @@ import javax.naming.NamingException;
 import ru.spec.ee.ejb.IEchoService;
 
 /**
- * Точка входа
+ * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
  * @author User
  *
  */
@@ -19,6 +19,9 @@ public class EntryPoint {
 
 		IEchoService echoBean = 
 				(IEchoService)ctx.lookup("echoBean");
+		
+		System.out.println(echoBean
+				.getClass().getName());
 		
 		String result = echoBean.echo("hello");
 		System.out.println(result);
