@@ -3,10 +3,8 @@ package ru.spec.ee.ejb;
 import javax.ejb.Remote;
 
 @Remote
-public interface IEchoService {
+public interface IMySingleton {
 
 	String echo(String msg);
-
-	int incrementAndGet();
 
 }

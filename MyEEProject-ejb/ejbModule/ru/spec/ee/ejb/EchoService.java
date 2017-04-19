@@ -1,5 +1,7 @@
 package ru.spec.ee.ejb;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -22,13 +24,23 @@ public class EchoService implements IEchoService {
 	@Named
 	double rnd;
 	
-    public EchoService() {
-    	
-    }
+	int count=0;
     
     @PostConstruct
     public void init(){
     	
+    }
+    
+    @Override
+    public int incrementAndGet(){
+    	System.out.println("----"+Thread.currentThread());
+    	try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return ++count;
     }
     
     /* (non-Javadoc)
