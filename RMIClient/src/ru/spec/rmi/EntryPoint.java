@@ -6,8 +6,14 @@ import javax.naming.NamingException;
 
 import ru.spec.ee.ejb.IEchoService;
 
+/**
+ * Точка входа
+ * @author User
+ *
+ */
 public class EntryPoint {
 
+	
 	public static void main(String[] args) throws NamingException {
 		Context ctx = new InitialContext();
 
