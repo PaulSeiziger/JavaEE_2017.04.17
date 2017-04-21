@@ -7,4 +7,6 @@ public interface IMySingleton {
 
 	String echo(String msg);
 
+	String echoTextMsg(String msg);
+
 }

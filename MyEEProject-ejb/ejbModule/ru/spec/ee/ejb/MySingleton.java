@@ -34,8 +34,8 @@ public class MySingleton implements IMySingleton {
 		System.out.println("+++--->MySingleton.init " + Thread.currentThread());
 	}
 
-	@Schedules({ 
-		@Schedule(hour = "*", minute = "*", second = "*/10", persistent = false) })
+//	@Schedules({ 
+//		@Schedule(hour = "*", minute = "*", second = "*/10", persistent = false) })
 //	@Interceptors({TimeLogger.class,})
 	@LogTime
 	public void logTime() {
@@ -43,10 +43,16 @@ public class MySingleton implements IMySingleton {
 	}
 
 	@Override
-//	@Interceptors(TimeLogger.class)
 	@LogTime(logResult=true)
-	
-	public String echo(@Observes(during=TransactionPhase.BEFORE_COMPLETION) String msg) {
+	public String echo(@TextMessage @Observes(during=TransactionPhase.BEFORE_COMPLETION) String msg) {
+		return msg;
+	}
+	@Override
+	@LogTime(logResult=true)
+	public String echoTextMsg(
+			@Observes(during=TransactionPhase.BEFORE_COMPLETION) 
+			@TextMessage 
+			String msg) {
 		return msg;
 	}
 

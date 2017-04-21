@@ -27,7 +27,10 @@ public class TimeLogger {
 		Object result = ic.proceed();
 		
 		Method method = ic.getMethod();
-		
+		LogTime annotation = method.getAnnotation(LogTime.class);
+		if(annotation.logResult()){
+			
+		}
 		System.out.println(""+ic.getTarget().getClass().getSimpleName()+"."
 				+ method.getName()
 				+ "() ---> ["

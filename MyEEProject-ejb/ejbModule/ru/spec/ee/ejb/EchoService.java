@@ -10,8 +10,10 @@ import javax.ejb.Asynchronous;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
+import javax.jms.JMSException;
+import javax.jms.TextMessage;
 
 /**
  * Session Bean implementation class EchoService
@@ -26,11 +28,15 @@ public class EchoService implements IEchoService {
 	TestService testService;
 
 	@Inject
-	@Named
+	@UserIdGenerator
 	double rnd;
+
+	@Inject
+	Event<String> bus;
 	
 	@Inject
-	Event<Object> bus;
+	@UserIdGenerator
+	Event<Object> busCommon;
 	
 	int count=0;
     
@@ -41,6 +47,7 @@ public class EchoService implements IEchoService {
     
     @Override
     public int incrementAndGet(){
+    	
     	System.out.println("----"+Thread.currentThread());
     	try {
 			TimeUnit.SECONDS.sleep(1);
@@ -55,13 +62,16 @@ public class EchoService implements IEchoService {
 	 * @see ru.spec.ee.ejb.IEchoService#echo(java.lang.String)
 	 */
     @Override
+	@LogTime(logResult=true)
 	public String echo(String msg){
     	testService.test();
     	System.out.println(rnd);
     	
     	System.out.println("--->"+testService.getClass().getName());
     	
-    	bus.fire(msg);
+    	busCommon.fire(msg);
+//    	busCommon.select(TextMessage.class).fire(event);
+//    	new TypeLiteral<List<Map<String, Date>>>() {};
     	return "re:"+msg;
     }
     
@@ -75,5 +85,9 @@ public class EchoService implements IEchoService {
 		}
     	return new AsyncResult<>(BigInteger.TEN);
     }
+    
+    public void onTextMessage(@Observes TextMessage tm) throws JMSException {
+		System.out.println("!!"+tm.getText());
+	}
 
 }

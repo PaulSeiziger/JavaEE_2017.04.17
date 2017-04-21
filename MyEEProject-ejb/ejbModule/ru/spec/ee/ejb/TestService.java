@@ -12,7 +12,7 @@ public class TestService {
 	}
 
 	@Produces
-	@Named
+	@UserIdGenerator
 	public double getRnd(){
 		return Math.random();
 	}
