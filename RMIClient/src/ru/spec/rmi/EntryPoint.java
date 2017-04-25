@@ -1,14 +1,18 @@
 package ru.spec.rmi;
 
+import java.util.Scanner;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import ru.sendto.jee.ejb.IQuizAdminService;
+import ru.sendto.jee.ejb.entity.Quiz;
 import ru.spec.ee.ejb.IEchoService;
 import ru.spec.ee.ejb.IMySingleton;
 
 /**
- * ����� �����
+ * Точка входа
  * 
  * @author User
  *
@@ -18,10 +22,16 @@ public class EntryPoint {
 	public static void main(String[] args) throws NamingException {
 		Context ctx = new InitialContext();
 
-//		stateles(ctx);
+		IQuizAdminService quizBean 
+			= (IQuizAdminService)ctx.lookup("QuizAdminService");
 		
-		IMySingleton singleton = (IMySingleton) ctx.lookup("singleton");
-		singleton.echo("ok");
+		System.out.println("текст вопроса:");
+		String text = 
+				new Scanner(System.in).nextLine();
+		
+		Quiz quiz = quizBean.addQuiz(text);
+		
+		System.out.println(quiz.getId());
 
 	}
 
