@@ -13,7 +13,7 @@ import ru.sendto.jee.ejb.entity.Option;
 import ru.sendto.jee.ejb.entity.Quiz;
 
 /**
- * Session Bean implementation class QuizAdminService
+ * Сервис проведения опросов
  */
 @Stateless(mappedName = "QuizAdminService")
 @LocalBean
@@ -22,6 +22,9 @@ public class QuizAdminService implements IQuizAdminService {
 	@PersistenceContext
     EntityManager em;
 	
+	/**
+	 * Добавить опрос
+	 */
 	@Override
 	public Quiz addQuiz(String text  /*, User u*/){
 		
@@ -34,22 +37,54 @@ public class QuizAdminService implements IQuizAdminService {
 		return quiz;
 	}
 
+	/**
+	 * Добавить опцию к опросу
+	 * @param quizId
+	 * @param optionTexts
+	 * @return
+	 */
 	public List<Option> addOptions(long quizId, String... optionTexts){
 		return null;
 	}
+	
+	/**
+	 * Завершить опрос
+	 */
+	public void closeQuiz(long quizId){
+		
+	}
 
+	/**
+	 * Найти опрос по тексту опроса
+	 * @param criteria - поисковой запрос
+	 * @return
+	 */
 	public List<Quiz> findQuizs(String criteria){
 		return null;
 	}
 	
+	/**
+	 * Получить список вопросов
+	 * @param offset 
+	 * @return
+	 */
 	public List<Quiz> getQuizList(int offset){
 		return null;
 	}
 	
+	/**
+	 * Добавить ответ на опрос
+	 * @param optionIds
+	 * @return
+	 */
 	public List<Answer> answerQuiz(long... optionIds){
 		return null;
 	}
-	
+	/**
+	 * Получить результаты опроса
+	 * @param quizId
+	 * @return
+	 */
 	public List<Answer> getQuizResults(long quizId){
 		return null;
 	}
