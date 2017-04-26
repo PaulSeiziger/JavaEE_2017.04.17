@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="QuizProject-2-ejb">
+		<jta-data-source>jdbc/quizs</jta-data-source>
+		<mapping-file>META-INF/orm.xml</mapping-file>
+		<class>ru.sendto.jee.ejb.entity.Answer</class>
+		<class>ru.sendto.jee.ejb.entity.Option</class>
+		<class>ru.sendto.jee.ejb.entity.Quiz</class>
+		<class>ru.sendto.jee.ejb.entity.User</class>
+		<shared-cache-mode>NONE</shared-cache-mode>
+		<properties>
+			<property name="eclipselink.jdbc.native-sql" value="true"/>
+			<property name="eclipselink.jdbc.cache-statements" value="false"/>
+			<property name="eclipselink.target-database" value="MySQL"/>
+			<property name="eclipselink.target-server" value="SunAS9"/>
+			<property name="eclipselink.logging.level" value="FINE"/>
+		</properties>
+	</persistence-unit>
+</persistence>

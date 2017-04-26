@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ru.send-to.jee</groupId>
+	<artifactId>QuizProject</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>QuizProject</name>
+	<modules>
+		<module>QuizProject-1-ear</module>
+		<module>QuizProject-2-ejb</module>
+		<module>QuizProject-3-web</module>
+	</modules>
+
+	<properties>
+		<!-- maven-compiler-plugin -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+		
+		
+		
+			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<type>jar</type>
+				<version>1.2</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>javax.persistence</artifactId>
+				<version>2.1.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>ru.send-to.jee</groupId>
+				<artifactId>QuizProject-2-ejb</artifactId>
+				<version>${project.version}</version>
+				<type>ejb</type>
+			</dependency>
+			<dependency>
+				<groupId>ru.send-to.jee</groupId>
+				<artifactId>QuizProject-3-web</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>2.8.1</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.8.1</version>
+			</dependency>
+
+
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt</artifactId>
+				<version>LATEST</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>ru.send-to.websocket</groupId>
+				<artifactId>CDIEndpoint</artifactId>
+				<version>0.0.3.2</version>
+				<type>jar</type>
+			</dependency>
+
+			<dependency>
+				<groupId>ru.send-to.dto</groupId>
+				<artifactId>DtoCommon</artifactId>
+				<version>0.0.3</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>ru.send-to.gwt</groupId>
+				<artifactId>Shortcut</artifactId>
+				<version>2.8.0.3</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>ru.send-to.gwt.html</groupId>
+				<artifactId>HtmlGwt</artifactId>
+				<version>2.8.0.1</version>
+				<type>jar</type>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>2.8.1</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.5</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

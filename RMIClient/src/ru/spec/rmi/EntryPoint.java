@@ -15,6 +15,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import ru.sendto.jee.ejb.IQuizAdminService;
+import ru.sendto.jee.ejb.entity.Quiz;
 import ru.spec.ee.ejb.IEchoService;
 import ru.spec.ee.ejb.IMySingleton;
 
@@ -28,6 +30,17 @@ public class EntryPoint {
 
 	public static void main(String[] args) throws NamingException, InterruptedException, ExecutionException, JMSException {
 		Context ctx = new InitialContext();
+
+		IQuizAdminService quizBean 
+			= (IQuizAdminService)ctx.lookup("QuizAdminService");
+		
+		System.out.println("текст вопроса:");
+		String text = 
+				new Scanner(System.in).nextLine();
+		
+		Quiz quiz = quizBean.addQuiz(text);
+		
+		System.out.println(quiz.getId());
 
 		Queue queue = (Queue) ctx.lookup("jms/QueueFromClientToServer");
 		ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/__defaultConnectionFactory");
