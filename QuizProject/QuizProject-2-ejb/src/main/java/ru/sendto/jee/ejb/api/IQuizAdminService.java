@@ -1,4 +1,4 @@
-package ru.sendto.jee.ejb;
+package ru.sendto.jee.ejb.api;
 
 import javax.ejb.Remote;
 
