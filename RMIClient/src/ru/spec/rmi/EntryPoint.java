@@ -1,6 +1,7 @@
 package ru.spec.rmi;
 
 import java.math.BigInteger;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -15,7 +16,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ru.sendto.jee.ejb.IQuizAdminService;
+import ru.sendto.jee.ejb.api.IQuizAdminService;
 import ru.sendto.jee.ejb.entity.Quiz;
 import ru.spec.ee.ejb.IEchoService;
 import ru.spec.ee.ejb.IMySingleton;
@@ -34,20 +35,11 @@ public class EntryPoint {
 		IQuizAdminService quizBean 
 			= (IQuizAdminService)ctx.lookup("QuizAdminService");
 		
-		System.out.println("текст вопроса:");
-		String text = 
-				new Scanner(System.in).nextLine();
+//		addQuiz(quizBean);
 		
-		Quiz quiz = quizBean.addQuiz(text);
-		
-		System.out.println(quiz.getId());
+		quizBean.test();
 
-		Queue queue = (Queue) ctx.lookup("jms/QueueFromClientToServer");
-		ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/__defaultConnectionFactory");
-		
-		jms2(queue, cf);
-		
-		oldJMS(queue, cf);
+//		jms_old_and_new(ctx);
 		
 		
 //		stateles(ctx);
@@ -58,6 +50,25 @@ public class EntryPoint {
 		
 //		singleton.
 
+	}
+
+	private static void addQuiz(IQuizAdminService quizBean) {
+		System.out.println("текст вопроса:");
+		String text = 
+				new Scanner(System.in).nextLine();
+		
+		Quiz quiz = quizBean.addQuiz(text);
+		
+		System.out.println(quiz.getId());
+	}
+
+	private static void jms_old_and_new(Context ctx) throws NamingException, JMSException {
+		Queue queue = (Queue) ctx.lookup("jms/QueueFromClientToServer");
+		ConnectionFactory cf = (ConnectionFactory) ctx.lookup("jms/__defaultConnectionFactory");
+		
+		jms2(queue, cf);
+		
+		oldJMS(queue, cf);
 	}
 
 	private static void jms2(Queue queue, ConnectionFactory cf) {

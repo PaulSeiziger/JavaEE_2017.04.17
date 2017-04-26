@@ -9,4 +9,6 @@ public interface IQuizAdminService {
 
 	Quiz addQuiz(String text /*, User u*/);
 
+	void test();
+
 }

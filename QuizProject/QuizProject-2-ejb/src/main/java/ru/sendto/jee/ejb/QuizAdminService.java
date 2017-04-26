@@ -2,10 +2,16 @@ package ru.sendto.jee.ejb;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.ejb.ApplicationException;
 import javax.ejb.LocalBean;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import ru.sendto.jee.ejb.api.IQuizAdminService;
 import ru.sendto.jee.ejb.entity.Answer;
@@ -22,10 +28,14 @@ public class QuizAdminService implements IQuizAdminService {
 	@PersistenceContext
     EntityManager em;
 	
+	@Resource
+	SessionContext sctx;
+	
 	/**
 	 * Добавить опрос
 	 */
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Quiz addQuiz(String text  /*, User u*/){
 		
 		Quiz quiz = new Quiz();
@@ -35,6 +45,54 @@ public class QuizAdminService implements IQuizAdminService {
 //		quiz.getId()
 		
 		return quiz;
+	}
+	
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	@Override
+	public void test(){
+		Query nativeQuery = em.createNativeQuery("SELECT * "
+				+ "FROM Quiz "
+				+ "WHERE 1 ",Quiz.class);
+//		nativeQuery.
+		
+		addQuiz("hello world");
+		
+		List<Quiz> resultList = em.createQuery(
+				"SELECT q "
+				+ "FROM Quiz q "
+//				+ "WHERE q.user.login = :userLogin "
+				+ "",Quiz.class)
+//			.setParameter("userLogin", "user1")
+			.setMaxResults(10)
+			.setFirstResult(0)
+			.getResultList();
+		
+//		Option opt = resultList.get(0);
+//		em.detach(opt);
+		
+//		em.
+		
+//		option.setIsCorrect(false);
+		
+		resultList.forEach(q->System.out.println(q.getText()));
+		
+		
+		
+//		em.createNamedQuery("Quiz.findAll", Quiz.class);
+		
+		throwExeprion();
+		System.out.println("end");
+		
+	}
+
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	private void throwExeprion() {
+		try {
+			throw new Exception("Oh no!");
+		} catch (Exception e) {
+			sctx.setRollbackOnly();
+			e.printStackTrace();
+		}
 	}
 
 	/**
