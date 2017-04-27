@@ -4,11 +4,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.ejb.ApplicationException;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -30,6 +32,12 @@ public class QuizAdminService implements IQuizAdminService {
 	
 	@Resource
 	SessionContext sctx;
+
+	@Inject
+	QuizAdminService self;
+	
+	@EJB
+	QuizAdminService self2;
 	
 	/**
 	 * Добавить опрос
@@ -37,6 +45,8 @@ public class QuizAdminService implements IQuizAdminService {
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public Quiz addQuiz(String text  /*, User u*/){
+		
+//		this.getClass()
 		
 		Quiz quiz = new Quiz();
 		quiz.setText(text);
@@ -55,7 +65,7 @@ public class QuizAdminService implements IQuizAdminService {
 				+ "WHERE 1 ",Quiz.class);
 //		nativeQuery.
 		
-		addQuiz("hello world");
+		self.addQuiz("---hello world---");
 		
 		List<Quiz> resultList = em.createQuery(
 				"SELECT q "
@@ -80,7 +90,7 @@ public class QuizAdminService implements IQuizAdminService {
 		
 //		em.createNamedQuery("Quiz.findAll", Quiz.class);
 		
-		throwExeprion();
+		self.throwExeprion();
 		System.out.println("end");
 		
 	}
