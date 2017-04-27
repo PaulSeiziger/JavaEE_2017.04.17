@@ -34,6 +34,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>ru.send-to.jee</groupId>
+			<artifactId>QuizProject-2-ejb</artifactId>
+			<type>ejb</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>ru.send-to.websocket</groupId>
 			<artifactId>CDIEndpoint</artifactId>
 			<version>0.0.3.2</version>
@@ -63,8 +69,6 @@
 			<groupId>org.fusesource.restygwt</groupId>
 			<artifactId>restygwt</artifactId>
 			<version>RELEASE</version>
-			<type>jar</type>
-			<version>2.2.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
