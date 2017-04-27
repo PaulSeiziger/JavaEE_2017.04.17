@@ -13,6 +13,19 @@
 
 	<name>QuizProject-3-web</name>
 
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt</artifactId>
+				<version>2.8.1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -20,7 +33,85 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>ru.send-to.websocket</groupId>
+			<artifactId>CDIEndpoint</artifactId>
+			<version>0.0.3.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.send-to.dto</groupId>
+			<artifactId>DtoCommon</artifactId>
+			<version>0.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.send-to.gwt</groupId>
+			<artifactId>Shortcut</artifactId>
+			<type>jar</type>
+			<version>2.8.0.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<type>jar</type>
+			<version>2.5</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.restygwt</groupId>
+			<artifactId>restygwt</artifactId>
+			<version>RELEASE</version>
+			<type>jar</type>
+			<version>2.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<type>jar</type>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>ru.send-to.gwt.html</groupId>
+			<artifactId>HtmlGwt</artifactId>
+			<type>jar</type>
+			<version>2.8.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-elemental</artifactId>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<type>jar</type>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -36,6 +127,57 @@
 				<version>3.0.0</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>ru.send-to.less</groupId>
+				<artifactId>lesscss-maven-plugin</artifactId>
+				<version>1.7.0.1.1.4</version>
+				<configuration>
+					<sourceDirectory>${project.basedir}/src/main/webapp/less</sourceDirectory>
+					<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+					<compress>false</compress>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<configuration>
+							<sourceDirectory>${project.basedir}/src/main/webapp/less</sourceDirectory>
+							<outputFileFormat>quiz.min.css</outputFileFormat>
+							<includes>
+								<include>quiz.less</include>
+							</includes>
+						</configuration>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.8.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<!-- <goal>generateAsync</goal> -->
+							<goal>compile</goal>
+							<!-- <goal>test</goal> -->
+						</goals>
+					</execution>
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<extraJvmArgs default-value="-Xmx1024m">-Xmx1024m</extraJvmArgs>
+					<draftCompile>true</draftCompile>
+					<runTarget>index.html</runTarget>
+					<modules>
+						<module>ru.sendto.lmps.gwt.Injector</module>
+					</modules>
+					<!-- <extraJvmArgs>-javaagent:${lombok.lib}=ECJ</extraJvmArgs> <generateDirectory>${project.build.directory}/generated-sources/delombok</generateDirectory> -->
 				</configuration>
 			</plugin>
 		</plugins>
